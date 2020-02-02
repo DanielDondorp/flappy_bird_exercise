@@ -7,8 +7,7 @@ Created on Sun Feb  2 21:27:43 2020
 """
 
 import pygame
-import numpy as np
-from Bird import Bird
+from bird import Bird
 
 class Game:
     def __init__(self):
