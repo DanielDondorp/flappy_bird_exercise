@@ -82,10 +82,13 @@ class Game:
     def draw(self):
         if not self.game_over:
             self.display.fill([0,0,0])
+            
+            pygame.draw.line(self.display, (255,255,255), [0, self.height], [self.width, self.height], 10)
+            pygame.draw.line(self.display, (255,255,255), [0, 20], [self.width, 20], 1)
             pygame.draw.circle(self.display, (255,255,255), [self.bird_x_pos, int(self.bird.pos)], self.bird.size)
             
             for obstacle in self.obstacles:
-                pygame.draw.line(self.display, (255,255,255), [int(obstacle.pos), 0],
+                pygame.draw.line(self.display, (255,255,255), [int(obstacle.pos), 20],
                                                               [int(obstacle.pos), obstacle.lower_edge], obstacle.width)
                 pygame.draw.line(self.display, (255,255,255), [int(obstacle.pos), obstacle.lower_edge + self.gap_size],
                                                               [int(obstacle.pos), self.height], obstacle.width)
@@ -96,7 +99,7 @@ class Game:
         
         
     def update_obstacles(self):
-        if self.bird.pos > self.height-10 or self.bird.pos < 10:
+        if self.bird.pos > self.height-10 or self.bird.pos < 20:
             self.game_over = True
         else:
             for obstacle in self.obstacles:
