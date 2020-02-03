@@ -1,11 +1,23 @@
 # flappy_bird_exercise
 A little coding challenge: build a [flappy bird]("https://flappybird.io/")-like game using pygame. 
 
-To play whatever I happen to have working at this point clone the repository, and run
+To play, download and extract the repository as zip, or clone clone the repository:
 
 ```
-python game.py
+git clone https://github.com/DanielDondorp/flappy_bird_exercise.git
 ```
 
-Current status
-![screenshot](./README_data/20200202_screenshot.png)
+Install the requirements (pygame and numpy):
+
+```
+pip3 install -r requirements.txt
+```
+
+run the game:
+
+```
+python3 game.py
+```
+
+![screenshot_gameplay](./README_data/gameplay.png)
+![screenshot_game_over](./README_data/game_over.png)
