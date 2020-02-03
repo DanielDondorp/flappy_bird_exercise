@@ -94,7 +94,8 @@ class Game:
                                                               [int(obstacle.pos), self.height], obstacle.width)
             self.display.blit(self.score_text, self.score_text_rect)
         else:
-            self.display.blit(self.game_over_text, self.textRect)            
+            self.display.blit(self.game_over_text, self.game_over_text_rect) 
+            self.display.blit(self.play_again_text, self.play_again_text_rect)
         pygame.display.update()
         
         
@@ -125,15 +126,19 @@ class Game:
     def make_game_over_screen(self):
         self.font = pygame.font.SysFont(None, 38)
         self.game_over_text = self.font.render("Game Over!", True, (255,255,255), (0,0,0))
-        self.textRect = self.game_over_text.get_rect()
-        self.textRect.center = (self.width//2, self.height//2)
+        self.font = pygame.font.SysFont(None, 18)
+        self.play_again_text = self.font.render("press Spacebar to play again", True, (255,255,255), (0,0,0))
+        self.game_over_text_rect = self.game_over_text.get_rect()
+        self.game_over_text_rect.center = (self.width//2, self.height//2)
+        self.play_again_text_rect = self.play_again_text.get_rect()
+        self.play_again_text_rect.center = (self.width//2, (self.height//2)+50)
 
     def make_score_text(self):
-        self.font = pygame.font.SysFont(None, 18)
+        self.font = pygame.font.SysFont(None, 20)
         self.score_text = self.font.render(f"Game: {self.game_number} High score: {self.high_score} score: {self.score}", True, (255,255,255), (0,0,0))
         self.score_text_rect = self.score_text.get_rect()
-        self.score_text_rect.topright = (self.width, 0)
-        
+        self.score_text_rect.topright = (self.width, 3)
+    
 
         
 
