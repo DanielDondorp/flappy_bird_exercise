@@ -8,12 +8,12 @@ Created on Sun Feb  2 21:33:36 2020
 
 
 class Bird:
-    def __init__(self, pos = 100, g = 1, upforce = -10, max_speed = 10):
+    def __init__(self, pos = 100, g = 1, upforce = -10, max_speed = 10, size = 5):
         
         self.pos = pos
         self.g = g
         self.upforce = upforce
-        
+        self.size = size
         self.acceleration = 0
         self.velocity = 0
         self.max_speed = max_speed
