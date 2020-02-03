@@ -16,7 +16,8 @@ pip3 install -r requirements.txt
 run the game:
 
 ```
-python3 game.py
+cd flappy_bird_exercise
+python3 flappy_bird_exercise/game.py
 ```
 
 ![screenshot_gameplay](./README_data/gameplay.png)
