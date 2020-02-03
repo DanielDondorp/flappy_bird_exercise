@@ -25,6 +25,7 @@ class Bird:
             self.acceleration += self.g
             self.velocity += self.acceleration
             self.velocity = min(self.velocity, self.max_speed)
+            self.velocity = max(self.velocity, -self.max_speed)
             self.pos += self.velocity
             
             self.acceleration *= 0
