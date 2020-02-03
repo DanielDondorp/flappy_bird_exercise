@@ -103,7 +103,7 @@ class Game:
                 #check if bird hits obstacle
                 if obstacle.pos <= self.bird_x_pos + (2*self.bird.size)-1 and obstacle.pos + obstacle.width >= self.bird_x_pos - (2*self.bird.size)-1:
                     #check if bird through gap
-                    if self.bird.pos - (self.bird.size//2)  <= obstacle.lower_edge or self.bird.pos + (self.bird.size+2) >= obstacle.lower_edge+self.gap_size:
+                    if self.bird.pos - (self.bird.size//2)  <= obstacle.lower_edge or self.bird.pos + self.bird.size - (self.bird.size //2) >= obstacle.lower_edge+self.gap_size:
                         self.game_over = True
                 #if passed, score point
                 if obstacle.pos + obstacle.width < self.bird_x_pos and not obstacle.passed:
