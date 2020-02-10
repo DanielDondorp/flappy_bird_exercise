@@ -10,6 +10,8 @@ import pygame
 from bird import Bird
 from barrier import Barrier
 
+import numpy as np
+
 class Game:
     def __init__(self):
         
