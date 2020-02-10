@@ -18,6 +18,8 @@ class Bird:
         self.velocity = 0
         self.max_speed = max_speed
         
+        self.frames = 0
+        
         self.started = False
         
     def update(self):
@@ -27,8 +29,11 @@ class Bird:
             self.velocity = min(self.velocity, self.max_speed)
             self.velocity = max(self.velocity, -self.max_speed)
             self.pos += self.velocity
-            
             self.acceleration *= 0
+            self.frames += 1
+            
+#            if self.frames % 15 == 0:
+#                self.flap()
         
     def flap(self):
         if not self.started:
