@@ -33,7 +33,7 @@ class Game:
         
         
     def make_world(self):
-        self.bird = Bird(pos = self.height//2, size = 10)
+        self.bird = Bird(pos = self.height//2, x_pos = self.bird_x_pos, size = 10)
         self.obstacles = [Barrier(pos = self.width)]
         self.high_score = self.score
         self.score = 0
@@ -45,7 +45,7 @@ class Game:
         while self.running:
             if not self.game_over:
                 #update the position of the bird
-                self.bird.update()
+                self.bird.update(self.obstacles)
                 self.update_obstacles()
                 
                 self.make_score_text()
