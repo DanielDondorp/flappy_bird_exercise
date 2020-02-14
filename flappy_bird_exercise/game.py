@@ -35,7 +35,7 @@ class Game:
         
         
     def make_world(self):
-        self.bird = Bird(pos = self.height//2, size = 10)
+        self.bird = Bird(pos = self.height//2, size = 10, upforce = -10)
         self.obstacles = [Barrier(pos = self.width)]
         self.high_score = np.max([self.score, self.high_score])
         self.score = 0
