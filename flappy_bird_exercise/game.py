@@ -9,6 +9,7 @@ Created on Sun Feb  2 21:27:43 2020
 import pygame
 from bird import Bird
 from barrier import Barrier
+import numpy as np
 
 class Game:
     def __init__(self):
@@ -35,7 +36,7 @@ class Game:
     def make_world(self):
         self.bird = Bird(pos = self.height//2, x_pos = self.bird_x_pos, size = 10)
         self.obstacles = [Barrier(pos = self.width)]
-        self.high_score = self.score
+        self.high_score = np.max([self.score, self.score]) 
         self.score = 0
         self.game_number += 1
         

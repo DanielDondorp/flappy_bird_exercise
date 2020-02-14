@@ -25,6 +25,7 @@ class Bird:
             self.nn = NeuralNet()
         
         self.started = False
+        self.score = 0
         
     def update(self, obstacles):
         if self.started:            
@@ -39,6 +40,7 @@ class Bird:
             self.perceive(closest_obstacle)
 #            if self.frames % 15 == 0:
 #                self.flap()
+    
     def perceive(self, obstacle):
         
         dist_to_obstacle = obstacle.pos - self.x_pos
