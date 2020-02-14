@@ -48,8 +48,7 @@ class Bird:
         
         if self.nn.model.predict(world)[0][0] > 0.5:
             self.flap()
-        
-        
+                
     def flap(self):
         if not self.started:
             self.started = True
