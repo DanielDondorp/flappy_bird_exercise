@@ -104,22 +104,6 @@ class Game:
         
         
     def update_obstacles(self):
-#        if self.bird.pos > self.height-10 or self.bird.pos < 20:
-#            self.game_over = True
-#        else:
-#            for obstacle in self.obstacles:
-#                if not self.bird.started and obstacle.pos - self.bird_x_pos < 600:
-#                    self.bird.started = True
-                #check if bird hits obstacle
-#                if obstacle.pos <= self.bird_x_pos + (2*self.bird.size)-1 and obstacle.pos + obstacle.width >= self.bird_x_pos + (self.bird.size)-1:
-#                    #check if bird through gap
-#                    if self.bird.pos - (self.bird.size//2)  <= obstacle.lower_edge or self.bird.pos + self.bird.size - (self.bird.size //2) >= obstacle.lower_edge+self.gap_size:
-#                        self.game_over = True
-#                #if passed, score point
-#                if obstacle.pos + obstacle.width < self.bird_x_pos and not obstacle.passed:
-#                        obstacle.passed = True
-#                        self.score += 1
-#                obstacle.update()
         for obstacle in self.obstacles:
             obstacle.update()
             #Add new obstacles if needed
