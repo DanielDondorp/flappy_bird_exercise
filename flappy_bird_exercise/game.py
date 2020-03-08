@@ -35,8 +35,8 @@ class Game:
         
         
     def make_world(self):
-        self.bird = Bird(pos = self.height//2, size = 10, upforce = -10)
-        self.obstacles = [Barrier(pos = self.width)]
+        self.bird = Bird(y_pos = self.height//2, size = 15, upforce = -10)
+        self.obstacles = [Barrier(pos = self.width, width = 50)]
         self.high_score = np.max([self.score, self.high_score])
         self.score = 0
         self.game_number += 1
@@ -47,11 +47,13 @@ class Game:
         while self.running:
             if not self.game_over:
                 #update the position of the bird
-                self.bird.update()
-                self.update_obstacles()
-                
-                self.make_score_text()
-
+                if self.bird.alive:
+                    self.bird.update(self.obstacles)
+                    self.update_obstacles()
+                    
+                    self.make_score_text()
+                else:
+                    self.game_over = True
                 #handle pygame events/keypresses
                 for event in pygame.event.get():
                     #if spacebar is pressed, flap the bird.
@@ -87,7 +89,7 @@ class Game:
             
             pygame.draw.line(self.display, (255,255,255), [0, self.height], [self.width, self.height], 10)
             pygame.draw.line(self.display, (255,255,255), [0, 20], [self.width, 20], 1)
-            pygame.draw.circle(self.display, (255,255,255), [self.bird_x_pos, int(self.bird.pos)], self.bird.size)
+            pygame.draw.circle(self.display, self.bird.color, [self.bird.x_pos, int(self.bird.y_pos)], self.bird.size)
             
             for obstacle in self.obstacles:
                 pygame.draw.line(self.display, (255,255,255), [int(obstacle.pos), 20],
@@ -102,29 +104,31 @@ class Game:
         
         
     def update_obstacles(self):
-        if self.bird.pos > self.height-10 or self.bird.pos < 20:
-            self.game_over = True
-        else:
-            for obstacle in self.obstacles:
-                if not self.bird.started and obstacle.pos - self.bird_x_pos < 600:
-                    self.bird.started = True
+#        if self.bird.pos > self.height-10 or self.bird.pos < 20:
+#            self.game_over = True
+#        else:
+#            for obstacle in self.obstacles:
+#                if not self.bird.started and obstacle.pos - self.bird_x_pos < 600:
+#                    self.bird.started = True
                 #check if bird hits obstacle
-                if obstacle.pos <= self.bird_x_pos + (2*self.bird.size)-1 and obstacle.pos + obstacle.width >= self.bird_x_pos + (self.bird.size)-1:
-                    #check if bird through gap
-                    if self.bird.pos - (self.bird.size//2)  <= obstacle.lower_edge or self.bird.pos + self.bird.size - (self.bird.size //2) >= obstacle.lower_edge+self.gap_size:
-                        self.game_over = True
-                #if passed, score point
-                if obstacle.pos + obstacle.width < self.bird_x_pos and not obstacle.passed:
-                        obstacle.passed = True
-                        self.score += 1
-                obstacle.update()
+#                if obstacle.pos <= self.bird_x_pos + (2*self.bird.size)-1 and obstacle.pos + obstacle.width >= self.bird_x_pos + (self.bird.size)-1:
+#                    #check if bird through gap
+#                    if self.bird.pos - (self.bird.size//2)  <= obstacle.lower_edge or self.bird.pos + self.bird.size - (self.bird.size //2) >= obstacle.lower_edge+self.gap_size:
+#                        self.game_over = True
+#                #if passed, score point
+#                if obstacle.pos + obstacle.width < self.bird_x_pos and not obstacle.passed:
+#                        obstacle.passed = True
+#                        self.score += 1
+#                obstacle.update()
+        for obstacle in self.obstacles:
+            obstacle.update()
             #Add new obstacles if needed
-            if self.obstacles[-1].pos <= self.width:
-                self.obstacles.append(Barrier(pos = self.width + self.distance_between_obstacles))
-            
-            #Remove old obstacles if needed
-            if self.obstacles[0].pos + self.obstacles[0].width <= -50:
-                self.obstacles.remove(self.obstacles[0])
+        if self.obstacles[-1].pos <= self.width:
+            self.obstacles.append(Barrier(pos = self.width + self.distance_between_obstacles, width = 50))
+        
+        #Remove old obstacles if needed
+        if self.obstacles[0].pos + self.obstacles[0].width <= -50:
+            self.obstacles.remove(self.obstacles[0])
 
             
     def make_game_over_screen(self):
