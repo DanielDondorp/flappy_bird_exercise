@@ -35,7 +35,9 @@ class Game:
         
         
     def make_world(self):
-        self.bird = Bird(y_pos = self.height//2, size = 15, upforce = -10)
+        self.birds = [Bird(y_pos = self.height//2, size = 15, upforce = -10) for _ in range(2)]
+        for bird in self.birds:
+            bird.started = True
         self.obstacles = [Barrier(pos = self.width, width = 50)]
         self.high_score = np.max([self.score, self.high_score])
         self.score = 0
@@ -47,13 +49,16 @@ class Game:
         while self.running:
             if not self.game_over:
                 #update the position of the bird
-                if self.bird.alive:
-                    self.bird.update(self.obstacles)
-                    self.update_obstacles()
-                    
-                    self.make_score_text()
-                else:
-                    self.game_over = True
+                for bird in self.birds:
+                    if bird.alive:
+                        bird.update(self.obstacles)
+                        self.update_obstacles()
+                        
+                        self.make_score_text()
+                    else:
+                        bird.alive = False
+                        self.birds.remove(bird)
+                self.update_obstacles()
                 #handle pygame events/keypresses
                 for event in pygame.event.get():
                     #if spacebar is pressed, flap the bird.
@@ -81,7 +86,7 @@ class Game:
             #draw all objects
             self.draw()
             #advance the frame, limit to 30 fps
-            self.clock.tick(30)
+            self.clock.tick(15)
         
     def draw(self):
         if not self.game_over:
@@ -89,7 +94,8 @@ class Game:
             
             pygame.draw.line(self.display, (255,255,255), [0, self.height], [self.width, self.height], 10)
             pygame.draw.line(self.display, (255,255,255), [0, 20], [self.width, 20], 1)
-            pygame.draw.circle(self.display, self.bird.color, [self.bird.x_pos, int(self.bird.y_pos)], self.bird.size)
+            for bird in self.birds:
+                pygame.draw.circle(self.display, bird.color, [bird.x_pos, int(bird.y_pos)], bird.size)
             
             for obstacle in self.obstacles:
                 pygame.draw.line(self.display, (255,255,255), [int(obstacle.pos), 20],
