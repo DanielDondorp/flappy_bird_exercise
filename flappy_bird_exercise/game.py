@@ -35,7 +35,8 @@ class Game:
         
         
     def make_world(self):
-        self.birds = [Bird(y_pos = self.height//2, size = 15, upforce = -10) for _ in range(2)]
+        self.birds = [Bird(y_pos = self.height//2, size = 15, upforce = -10) for _ in range(10)]
+        self.dead_birds = []
         for bird in self.birds:
             bird.started = True
         self.obstacles = [Barrier(pos = self.width, width = 50)]
@@ -49,15 +50,18 @@ class Game:
         while self.running:
             if not self.game_over:
                 #update the position of the bird
-                for bird in self.birds:
-                    if bird.alive:
-                        bird.update(self.obstacles)
-                        self.update_obstacles()
-                        
-                        self.make_score_text()
-                    else:
-                        bird.alive = False
-                        self.birds.remove(bird)
+                if len(self.birds) > 0:
+                    for bird in self.birds:
+                        if bird.alive:
+                            bird.update(self.obstacles)
+                            self.update_obstacles()               
+                            self.make_score_text()
+                        else:
+                            bird.alive = False
+                            self.dead_birds.append(bird)
+                            self.birds.remove(bird)
+                else:
+                    self.game_over = True
                 self.update_obstacles()
                 #handle pygame events/keypresses
                 for event in pygame.event.get():
@@ -86,7 +90,7 @@ class Game:
             #draw all objects
             self.draw()
             #advance the frame, limit to 30 fps
-            self.clock.tick(15)
+            self.clock.tick(60)
         
     def draw(self):
         if not self.game_over:

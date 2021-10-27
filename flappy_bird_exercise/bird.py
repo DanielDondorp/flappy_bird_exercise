@@ -61,3 +61,4 @@ class Bird:
         if self.velocity > 0:
             self.velocity *= 0
         self.acceleration += self.upforce
+        
